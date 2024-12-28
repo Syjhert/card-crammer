@@ -1,23 +1,28 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import CardList from './CardList';
 
 const Home = () => {
-    const [name, setName] = useState('mario');
-    const [age, setAge] = useState(25);
-    const [clickTimes, setClickTimes] = useState(0);
+    const [cards, setCards] = useState([
+        { question: 'What is 1+1?', answer: "2", author: "jorosh", id: 1 },
+        { question: 'What is the plant\' process of making food?', answer: "Photosynthesis", author: "nutters", id: 2 },
+        { question: 'What is 2+2?', answer: "4", author: "jorosh", id: 3 },
+    ])
 
-    const handleClick = ()=>{
-        setName("luigi");
-        setAge(30)
-        setClickTimes(clickTimes+1);
-    };
+    const handleDelete = (id)=>{
+        const newCards = cards.filter((card)=>{return card.id !== id});
+        setCards(newCards);
+    }
 
-    return ( 
+    useEffect(()=>{
+        console.log("Use effect ran");
+        console.log("You just deleted a card");
+    }, [cards])
+
+    return (    
         <div className="home">
-            <h2>Homepage</h2>
-            <p>Name is {name}, {age} years old</p>
-            <p>You clicked {clickTimes} times!</p>
-            <button onClick={handleClick}>Click me</button>
-        </div>
+            <CardList cards={ cards } title={ "All Cards" } handleDelete={ handleDelete }/>
+            <CardList cards={ cards.filter( (blog)=>{return blog.author === "jorosh"} ) } title={ "Jorosh Cards" } handleDelete={ handleDelete }/>
+            </div>
     );
 }
  
