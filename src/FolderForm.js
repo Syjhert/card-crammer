@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const FolderForm = ({ addFolder }) => {
     // variable that records the folderName
@@ -7,14 +7,11 @@ const FolderForm = ({ addFolder }) => {
 
     // handles the submission of the create new folder form
     // prevents the form to reload the page
-    // takes the input from the document element and calls the addFolder
     // resets the folderName variable
     const handleSubmit = (e) => {
         e.preventDefault();
-        const folderNameInput = document.getElementById("folder-name-input");
-        setFolderName(folderName.value);
         if (!folderName) return;
-        addFolder( folderName );
+        addFolder(folderName);
         setFolderName("");
     };
 
@@ -24,6 +21,7 @@ const FolderForm = ({ addFolder }) => {
         id="folder-name-input"  
         type="text"
         placeholder="Enter folder name"
+        onChange={(e) => setFolderName(e.target.value)}
         />
         <button type="submit">Add Folder</button>
     </form>

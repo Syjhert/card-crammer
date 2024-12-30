@@ -46,12 +46,16 @@ const Folder = ({ folder, toggleAnswer, addFlashcardToFolder }) => {
   return (
     <div className="folder">
       <h1>{ folder.name }</h1>
-      <p>{flashcardInd+1} / {folder.flashcards.length}</p>
-      <Flashcard key={flashcardInd} folderID={folder.id} flashcard={folder.flashcards[flashcardInd]} toggleAnswer={toggleAnswer} />
-      <div className="folder-buttons">
-        { prevButton() }
-        { nextButton() }
-      </div>
+      { folder.flashcards.length > 0 && 
+        <div>
+          <p>{flashcardInd+1} / {folder.flashcards.length}</p>
+          <Flashcard key={flashcardInd} folderID={folder.id} flashcard={folder.flashcards[flashcardInd]} toggleAnswer={toggleAnswer} />
+          <div className="folder-buttons">
+            { prevButton() }
+            { nextButton() }
+          </div>
+        </div>
+      }
       <FlashcardForm folderID={folder.id} addFlashcardToFolder={addFlashcardToFolder} />
     </div>
   );

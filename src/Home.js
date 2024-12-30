@@ -39,13 +39,14 @@ const Home = () => {
     ]);
 
     // add new folder in the "folders" using react hook (useState)
-    const addFolder = ({folderName}) => {
+    const addFolder = (folderName) => {
         setFolders((prevFolders)=> [
-        //expands existing "folders" variable into individuals 
-        ...prevFolders,
-        // then adds a new folder object
-        {id: prevFolders.length + 1, name: folderName, flashcards: []}
+            //expands existing "folders" variable into individuals 
+            ...prevFolders,
+            // then adds a new folder object
+            {id: prevFolders.length + 1, name: folderName, flashcards: []}
         ])
+        console.log(folders);
     }
 
     // adds new flashcard to an existing folder using react hook
