@@ -4,9 +4,13 @@ import FolderForm from './FolderForm';
 import FolderPreview from './FolderPreview';
 
 const Home = () => {
+
+    // boolean for the home page to either show the folder previews or a folder content (its flashcards)
     const [showingFolder, setShowingFolder] = useState(false);
+    // if we view the folder contents, this variable stores the ID of that folder
     const [folderID, setFolderID] = useState(0);
-    // Not json because this does not have database yet
+    // folders holder, default state contains dummy data
+    // Not json because this does not have database yet so cannot save, edit, and delete contents
     const [folders, setFolders] = useState([
         {
             id: 1,
@@ -34,41 +38,58 @@ const Home = () => {
             },
     ]);
 
+    // add new folder in the "folders" using react hook (useState)
     const addFolder = ({folderName}) => {
         setFolders((prevFolders)=> [
+        //expands existing "folders" variable into individuals 
         ...prevFolders,
+        // then adds a new folder object
         {id: prevFolders.length + 1, name: folderName, flashcards: []}
         ])
     }
 
+    // adds new flashcard to an existing folder using react hook
     const addFlashcardToFolder = (folderID, newFlashcard) => {
         setFolders((prevFolders) =>
         prevFolders.map((folder) =>{
+            // if this is the folder we are finding, we change the object returned
             if (folder.id === folderID) {
-            return {  ...folder, 
-                flashcards: 
-                [
-                    ...folder.flashcards, 
-                    { id: folder.flashcards.length+1, question: newFlashcard.question, answer: newFlashcard.answer }
-                ] 
-            };
+                // returns a new object with all the "folder" properties
+                return {  ...folder,
+                    // updates the "flashcards" property with a new array
+                    flashcards: 
+                    [
+                        // retains the previous flashcards
+                        ...folder.flashcards, 
+                        // adds a new flashcard with the latest ID, question, and answer properties
+                        { id: folder.flashcards.length+1, question: newFlashcard.question, answer: newFlashcard.answer }
+                    ] 
+                };
             }
+            // else retain the folder contents
             else{
-            return folder;
+                return folder;
             }
         })
         );
     };
 
+    // given a folderID and flashcardID, toggle the flashcard's "showAnswer" property using setFolders
     const toggleAnswer = (folderID, flashcardID) => {
         setFolders((prevFolders) => 
             prevFolders.map((folder) => {
+                // if this is the correct folder, we return a new object
                 if (folder.id === folderID){
+                    // updated flashcards variable that maps the flashcards of the current folder
+                    // if this is the correct flashcard, make a new object with previous properties 
+                    // except the showAnswer is reverese. ELSE retain the other card contents
                     const updatedFlashcards = folder.flashcards.map((card) => 
                         card.id === flashcardID ? { ...card, showAnswer: !card.showAnswer } : card
                     );
+                    // update the flashcards of this folder
                     return { ...folder, flashcards: updatedFlashcards };
                 }
+                // else retain the other folder contents
                 else{
                     return folder;
                 }
@@ -84,10 +105,10 @@ const Home = () => {
                     <div className="folder-preview-cont">
                         {folders.map((folder) => (
                             <FolderPreview 
-                            key={folder.id}
-                            folder={folder}
-                            setShowingFolder={setShowingFolder}
-                            setFolderID={setFolderID}
+                                key={folder.id}
+                                folder={folder}
+                                setShowingFolder={setShowingFolder}
+                                setFolderID={setFolderID}
                             />
                         ))}
                     </div>

@@ -3,22 +3,27 @@ import Flashcard from './Flashcard';
 import FlashcardForm from './FlashcardForm';
 
 const Folder = ({ folder, toggleAnswer, addFlashcardToFolder }) => {
+  // variable for the current index of flashcard in a folder within the array (not its ID)
   const [flashcardInd, setFlashcardInd] = useState(0);
 
+  // boolean function to check if we can go to the previous card
   const canPrev = ()=>{
     return flashcardInd > 0;
   }
+  // boolean function to check if we can go to the next card
   const canNext = ()=>{
     return flashcardInd < (folder.flashcards.length - 1)
   }
-
+  // calls setFlashcardInd for an index decrement
   const handlePrev = ()=>{
     setFlashcardInd(flashcardInd-1);
   }
+  // calls setFlashcardInd for an index increment
   const handleNext = ()=>{
     setFlashcardInd(flashcardInd+1);
   }
-  
+
+  // function that returns JXS button based on whether we can go back or not (if not it is disabled)
   const prevButton = ()=>{
     if (canPrev()){
       return <button className="active-btn prev" onClick={handlePrev}>Prev</button>
@@ -28,6 +33,7 @@ const Folder = ({ folder, toggleAnswer, addFlashcardToFolder }) => {
     }
   }
 
+  // function that returns JXS button based on whether we can go next or not (if not it is disabled)
   const nextButton = ()=>{
     if (canNext()){
       return <button className="active-btn next" onClick={handleNext}>Next</button>

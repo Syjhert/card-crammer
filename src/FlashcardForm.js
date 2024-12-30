@@ -4,6 +4,10 @@ const FlashcardForm = ({ folderID, addFlashcardToFolder }) => {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
 
+  // handles the submission of the create new flashcard form
+  // prevents the form to reload the page
+  // calls Home's addFlashcardToFolder function props
+  // Sets the question and answer textareas to blank
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!question || !answer) return;
