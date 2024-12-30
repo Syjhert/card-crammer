@@ -12,7 +12,7 @@ const FolderForm = ({ addFolder }) => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const folderNameInput = document.getElementById("folder-name-input");
-        setFolderName(folderName.val());
+        setFolderName(folderName.value);
         if (!folderName) return;
         addFolder( folderName );
         setFolderName("");
