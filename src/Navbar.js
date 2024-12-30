@@ -4,11 +4,8 @@ const Navbar = () => {
             <h1>Card Crammer</h1>
             <div className="links">
                 <a href='/'>Home</a>
-                <a href='/create' style={{
-                    color: "white",
-                    backgroundColor: "#f1356d",
-                    borderRadius: "8px"
-                }}>New Folder</a>
+                {/* Next time, I might use react router so yeah */}
+                <a href='/'>About</a>
             </div>
         </nav>
     );
