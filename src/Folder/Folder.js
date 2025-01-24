@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import Flashcard from './Flashcard';
-import FlashcardForm from './FlashcardForm';
+import Flashcard from '../Flashcard/Flashcard';
+import FlashcardForm from '../Flashcard/FlashcardForm';
 
 const Folder = ({ folder, toggleAnswer, addFlashcardToFolder }) => {
   // variable for the current index of flashcard in a folder within the array (not its ID)
