@@ -2,16 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import { foldersReducer } from './redux/reducer'
-import { thunk } from 'redux-thunk';
-
-// STORE OR GLOBALIZED STATE(S)
-const store = createStore(
-  foldersReducer,
-  applyMiddleware(thunk)
-)
+import { store } from './redux/store';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

@@ -5,16 +5,15 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
 
-  const baseURL = '/card-crammer';
 
   return (
-    <Router>
+    <Router basename="/card-crammer">
       <div className="App">
         <Navbar />
         <div className="content">
           <Routes>
-            <Route exact path={baseURL + '/'} element={<Home />} />
-            <Route exact path={baseURL + '/create/folder'} />
+            <Route path={'/'} element={<Home />} />
+            <Route path={'/create/folder'} />
           </Routes>
         </div>
       </div>

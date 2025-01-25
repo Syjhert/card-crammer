@@ -5,9 +5,9 @@ const Navbar = () => {
             <h1>Card Crammer</h1>
 
             <div className="links">
-                <a href='/'>Home</a>
+                <a href='/card-crammer'>Home</a>
                 {/* Next time, I might use react router so yeah */}
-                <a href='/'>About</a>
+                <a href='/card-crammer/about'>About</a>
             </div>
         </nav>
     );
