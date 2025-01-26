@@ -1,17 +1,17 @@
 import { useState } from 'react';
 
-const FlashcardForm = ({ folderID, addFlashcardToFolder }) => {
+const FlashcardForm = ({ addFlashcardToFolder }) => {
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
 
   // handles the submission of the create new flashcard form
   // prevents the form to reload the page
-  // calls Home's addFlashcardToFolder function props
+  // calls EditFolder's addFlashcardToFolder function props
   // Sets the question and answer textareas to blank
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!question || !answer) return;
-    addFlashcardToFolder(folderID, { question, answer });
+    addFlashcardToFolder(question, answer);
     setQuestion("");
     setAnswer("");
   };
@@ -30,7 +30,7 @@ const FlashcardForm = ({ folderID, addFlashcardToFolder }) => {
         value={answer}
         onChange={(e) => setAnswer(e.target.value)}
       />
-      <button type="submit">Add Flashcard</button>
+      <button className='flashcard-form-button' type="submit">Add Flashcard</button>
     </form>
   );
 }

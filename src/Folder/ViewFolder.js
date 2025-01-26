@@ -1,18 +1,40 @@
 import { useState } from 'react';
 import Flashcard from '../Flashcard/Flashcard';
-import FlashcardForm from '../Flashcard/FlashcardForm';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleAnswer } from '../redux/reducer';
+import { useParams } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import editPNG from "../assets/edit.png"
 
-const ViewFolder = ({ folder, toggleAnswer, addFlashcardToFolder }) => {
+
+const ViewFolder = () => {
+  // gets the id in the route to this Component "/folders/:id"
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   // variable for the current index of flashcard in a folder within the array (not its ID)
   const [flashcardInd, setFlashcardInd] = useState(0);
 
+  const { folders, isLoading, error } = useSelector((state) => state.data);
+  if (isLoading) return <div>Loading Files...</div>;
+  if (error) return <div>Error in loading files: {error}</div>;
+  if (!folders || folders.length === 0) {
+    return <div>There was a problem loading the folder</div>
+  }
+
+  const folderToView = folders.find(folder => folder.folderID === parseInt(id));
+   // If no folder is found with the given ID
+   if (!folderToView) {
+    return <div>Folder not found</div>;
+  }
   // boolean function to check if we can go to the previous card
   const canPrev = ()=>{
     return flashcardInd > 0;
   }
   // boolean function to check if we can go to the next card
   const canNext = ()=>{
-    return flashcardInd < (folder.flashcards.length - 1)
+    return flashcardInd < (folderToView.flashcards.length - 1)
   }
   // calls setFlashcardInd for an index decrement
   const handlePrev = ()=>{
@@ -21,6 +43,13 @@ const ViewFolder = ({ folder, toggleAnswer, addFlashcardToFolder }) => {
   // calls setFlashcardInd for an index increment
   const handleNext = ()=>{
     setFlashcardInd(flashcardInd+1);
+  }
+
+  const handleToggleAnswer = () => {
+    dispatch(toggleAnswer({
+      folderID: folderToView.folderID, 
+      flashcardID: folderToView.flashcards[flashcardInd].id
+    }));
   }
 
   // function that returns JXS button based on whether we can go back or not (if not it is disabled)
@@ -45,18 +74,21 @@ const ViewFolder = ({ folder, toggleAnswer, addFlashcardToFolder }) => {
 
   return (
     <div className="folder">
-      <h1>{ folder.name }</h1>
-      { folder.flashcards.length > 0 && 
+      <div className='viewfolder-name'>
+        <h1>{ folderToView.name }</h1>
+        <img onClick={()=>{ navigate('/folders/edit/' + folderToView.folderID) }} src={editPNG}></img>
+      </div>
+      { folderToView.flashcards.length > 0 ?
         <div>
-          <p>{flashcardInd+1} / {folder.flashcards.length}</p>
-          <Flashcard key={flashcardInd} folderID={folder.id} flashcard={folder.flashcards[flashcardInd]} toggleAnswer={toggleAnswer} />
+          <p>{flashcardInd+1} / {folderToView.flashcards.length}</p>
+          <Flashcard key={flashcardInd} flashcard={folderToView.flashcards[flashcardInd]} handleToggleAnswer={handleToggleAnswer} />
           <div className="folder-buttons">
             { prevButton() }
             { nextButton() }
           </div>
-        </div>
+        </div> : <div>No flashcards are in this folder yet.</div>
       }
-      <FlashcardForm folderID={folder.id} addFlashcardToFolder={addFlashcardToFolder} />
+      {/* <FlashcardForm folderID={folder.id} addFlashcardToFolder={addFlashcardToFolder} /> */}
     </div>
   );
 }

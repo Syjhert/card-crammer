@@ -4,7 +4,7 @@ import foldersReducer from './reducer';
 // STORE OR GLOBALIZED STATE(S)
 export const store = configureStore({
     reducer: {
-        folders: foldersReducer
+        data: foldersReducer
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(),
   });

@@ -9,6 +9,17 @@
 :root {
   --red: #f1356d;
 }
+
+img {
+  height: 20px;
+  width: 20px;
+}
+button {
+  height: 25px;
+  border-radius: 5px;
+  border: 1px gray solid;
+  cursor: pointer;
+}
  
 .navbar {
   padding: 20px;
@@ -17,7 +28,7 @@
   border-bottom: 1px solid #f2f2f2;
 }
 .App > * {
-  max-width: 600px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 .navbar h1 {
@@ -35,7 +46,7 @@
   color: var(--red);
 }
 .content {
-  max-width: 600px;
+  max-width: 1000px;
   margin: 40px auto;
   padding: 20px;
 }
@@ -45,6 +56,49 @@
   text-align: center;
   padding: 20px;
 }
+.Home {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.create-folder-form {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  gap: 6px;
+  align-items: center;
+  margin: 0px auto;
+}
+.create-folder-form > input {
+  width: 100%;
+  height: 20px;
+}
+.create-folder-form > button{
+  width: 200px;
+}
+
+.viewfolder-name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px
+}
+.viewfolder-name > img {
+  cursor: pointer;
+}
+
+.edit-folder, #editFolderForm {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.edit-folder-form-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
 .folder-preview-cont {
   width: 90%;
   max-width: 500px;
@@ -54,6 +108,7 @@
 .folder-preview {
   border: 2px solid black;
   border-radius: 7px;
+  max-width: 500px;
   margin: 10px;
   padding: 3px;
 }
@@ -72,9 +127,38 @@
 
 .flashcard {
   border: 2px solid lightgray;
-  margin: 10px;
-  padding: 10px;
+  width: 500px;
+  margin: 10px auto;
+  padding: 30px;
   border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+.flashcard-form-group {
+  display: flex;
+  gap: 10px;
+}
+.flashcard-form {
+  width: 70%;
+  margin: 10px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: center;
+}
+.edit-folder textarea {
+  height: 50px;
+  width: 400px;
+  padding: 5px;
+  border: 1px solid gray;
+  border-radius: 5px;
+  resize: none;
+}
+
+.flashcard-form > button, .flashcard > button {
+  width: 200px;
 }
 
 .toggle-answer-button {
@@ -87,23 +171,8 @@
   cursor: pointer;
 }
 
-.flashcard-form {
-  width: 70%;
-  margin: 10px auto;
+.about-div {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  align-items: center;
-}
-.flashcard-form textarea {
-  height: 50px;
-  width: 400px;
-  padding: 5px;
-  border: 1px solid gray;
-  border-radius: 5px;
-  resize: none;
-}
-
-.flashcard-form button {
-  width: 200px;
+  gap: 20px;
 }

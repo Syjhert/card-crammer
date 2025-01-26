@@ -1,9 +1,9 @@
-const FolderPreview = ( {folder, setShowingFolder, setFolderID} ) => {
+const FolderPreview = ( {folder, handleViewFolder } ) => {
     return ( 
-        <div className="folder-preview" onClick={()=>{setShowingFolder(true); setFolderID(folder.id); }}>
+        <div className="folder-preview" onClick={() => handleViewFolder() }>
             <h4>{ folder.name }</h4>
         </div>
     );
 }
- 
-export default FolderPreview;
+
+export default FolderPreview
