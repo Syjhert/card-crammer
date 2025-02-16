@@ -1,10 +1,18 @@
 import { connectDB, closeConnection } from "./dbConnect.js";
 
+// create new folder with name as its only field other than _id
 export const createFolder = async (folderName) => {
+    // unpack foldersCollection only because that is what we only need for this function
     const { foldersCollection } = await connectDB();
+    
+    // mongodb insertOne function with object as its parameter, store result in variable to know result state
     const result = await foldersCollection.insertOne({name: folderName});
     console.log(`New Folder created with the following id: ${result.insertedId}`);
+
+    // close connection after every function to fetch new data for each query call
     closeConnection();
+
+    // return insertedId (1) in case needed for future implementation
     return result.insertedId;
 }
 
@@ -19,6 +27,7 @@ export const createFlashcard = async (newFlashcard) => {
 export const getAllFolders = async () => {
     const { foldersCollection } = await connectDB();
     const folders = await foldersCollection.find().toArray();
+    // console log each folder name for testing
     folders.forEach(folder => {
         console.log(folder.name);
     })
@@ -38,6 +47,7 @@ export const getFlashcards = async (folderId) => {
 
 export const updateFolderName = async (folderId, newFolderName) => {
     const { foldersCollection } = await connectDB();
+    // $set new name for updated folder, the flashcards content of the folder is in the next function
     const result = await foldersCollection.updateOne({_id: folderId}, {$set: {name: newFolderName}})
     console.log(`Update folder result: `);
     console.log(result);
@@ -73,12 +83,3 @@ export const deleteFolder = async (folderId) => {
     closeConnection();
     return result.deleteCount;
 }
-
-// async function listDatabases(client) {
-//     const databasesList = await client.db().admin().listDatabases();
-
-//     console.log("List of Databases:");
-//     databasesList.databases.forEach(db => {
-//         console.log(`- ${db.name}`);
-//     });
-// }
