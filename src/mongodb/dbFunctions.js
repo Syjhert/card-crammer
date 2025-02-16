@@ -1,4 +1,4 @@
-import { connectDB, closeConnection } from "./dbConnect";
+import { connectDB, closeConnection } from "./dbConnect.js";
 
 export const createFolder = async (folderName) => {
     const { foldersCollection } = await connectDB();
