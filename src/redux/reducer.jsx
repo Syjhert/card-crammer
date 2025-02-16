@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-// import { fetchFolders } from "./actions";
+import { createFolder, createFlashcard, getAllFolders, getFlashcards, updateFolderName, updateFolderFlashcards, deleteFolder } from "../mongodb/dbFunctions";
+
 
 const foldersSlice = createSlice({
   name: 'data',
@@ -73,29 +74,13 @@ export const fetchFolders = createAsyncThunk("folders/fetchFolders", async (_, {
     console.log(cachedData);
     return cachedData;
   }
-
-
-  const url = 'https://quizmania-api.p.rapidapi.com/random-trivia';
-  const options = {
-    method: 'GET',
-    headers: {
-      // api key, I will hide it next time but I commited this key already in the last commit so yeah
-      'x-rapidapi-key': 'bb3c5d553fmsh18113e5f694a128p136cf0jsna9d21b7369d1',
-      'x-rapidapi-host': 'quizmania-api.p.rapidapi.com'
-    }
-  };
-
   try {
-    const response = await fetch(url, options);
-    const data = await response.json();
-    const payload = [
-      {
-        folderID: 1,
-        name: "Trivia Folder",
-        flashcards: data,
-      },
-    ];
-    return payload;
+    let folders = getAllFolders();
+    folders.forEach(folder => {
+      folder.flashcards = getFlashcards(folder.folder_id);
+    });
+
+    return folders;
   } catch (error) {
     throw Error(error);
   }
