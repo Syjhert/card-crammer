@@ -24,6 +24,18 @@ export const createFlashcard = async (newFlashcard) => {
     return result.insertedId;
 }
 
+export const folderExists = async (folderName) => {
+    const { foldersCollection } = await connectDB();
+    const result = await foldersCollection.findOne({name: folderName});
+    return result != null;
+}
+
+export const explainDocumentFind = async (folderName) => {
+    const { foldersCollection } = await connectDB();
+    const result = await foldersCollection.find({name: folderName}).explain("executionStats");
+    return result.executionStats.totalDocsExamined;
+}
+
 export const getAllFolders = async () => {
     const { foldersCollection } = await connectDB();
     const folders = await foldersCollection.find().toArray();

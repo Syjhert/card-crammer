@@ -27,6 +27,9 @@ export const connectDB = async () => {
         // set collections to global variables
         foldersCollection = database.collection("folders");
         flashcardsCollection = database.collection("flashcards");
+        // create index for better query performace (lookup)
+        await foldersCollection.createIndex({name: 1});
+        await flashcardsCollection.createIndex({folder_id: 1});
         // return collections as object for dbFunctions to select which to unpack
         return {foldersCollection, flashcardsCollection};
     } catch(e){
