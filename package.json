@@ -6,6 +6,7 @@
   "type": "module",
   "dependencies": {
     "@reduxjs/toolkit": "^2.5.0",
+    "child_process": "^1.0.2",
     "cra-template": "1.2.0",
     "mongodb": "^6.13.0",
     "react": "^19.0.0",
