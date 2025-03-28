@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addNewFolder } from '../redux/reducer';
+import { createFolder } from '../redux/reducer';
 import { useNavigate } from 'react-router-dom';
 
 const CreateFolder = () => {
@@ -22,7 +22,7 @@ const CreateFolder = () => {
         e.preventDefault();
         if (!folderName) return;
         const newFolderID = folders[folders.length]?.folderID || (folders.length + 1);
-        dispatch(addNewFolder({name: folderName}));
+        dispatch(createFolder({name: folderName}));
         setFolderName("");
         navigate("/folders/view/" + newFolderID);
     };

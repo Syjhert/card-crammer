@@ -23,7 +23,8 @@ const ViewFolder = () => {
     return <div>There was a problem loading the folder</div>
   }
 
-  const folderToView = folders.find(folder => folder.folderID === parseInt(id));
+  const folderToView = folders.find(folder => folder._id === id);
+
    // If no folder is found with the given ID
    if (!folderToView) {
     return <div>Folder not found</div>;
@@ -47,8 +48,8 @@ const ViewFolder = () => {
 
   const handleToggleAnswer = () => {
     dispatch(toggleAnswer({
-      folderID: folderToView.folderID, 
-      flashcardID: folderToView.flashcards[flashcardInd].id
+      folderID: folderToView._id, 
+      flashcardID: folderToView.flashcards[flashcardInd]._id
     }));
   }
 
@@ -76,7 +77,7 @@ const ViewFolder = () => {
     <div className="folder">
       <div className='viewfolder-name'>
         <h1>{ folderToView.name }</h1>
-        <img onClick={()=>{ navigate('/folders/edit/' + folderToView.folderID) }} src={editPNG}></img>
+        <img onClick={()=>{ navigate('/folders/edit/' + folderToView._id) }} src={editPNG}></img>
       </div>
       { folderToView.flashcards.length > 0 ?
         <div>

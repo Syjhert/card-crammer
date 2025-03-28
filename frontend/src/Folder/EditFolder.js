@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
-import { editFolder } from '../redux/reducer';
+import { editFolder, toggleAnswer } from '../redux/reducer';
 import FlashcardForm from '../Flashcard/FlashcardForm';
 
 const EditFolder = () => {
@@ -18,7 +18,7 @@ const EditFolder = () => {
   const [flashcards, setFlashcards] = useState([]);
 
   // Find the folder to edit based on the id
-  const folderToEdit = folders.find((folder) => folder.folderID === parseInt(id));
+  const folderToEdit = folders.find((folder) => folder._id === id);
 
   // If there is a folder to edit, set its fields to the states here
   useEffect(() => {
@@ -40,12 +40,12 @@ const EditFolder = () => {
       return; // Handle blank folder name
     }
     const updatedFolder = {
-      folderID: folderToEdit.folderID,
+      _id: folderToEdit._id,
       name: folderName,
       flashcards: flashcards,
     };
     dispatch(editFolder(updatedFolder)); // Dispatch the edit action
-    navigate('/folders/view/' + folderToEdit.folderID);  // Navigate to view the newly made folder
+    navigate('/folders/view/' + folderToEdit._id);  // Navigate to view the newly made folder
   };
 
   // if question textarea is changed, update the state of flashcards (automatic update)
@@ -129,7 +129,7 @@ const EditFolder = () => {
             addFlashcardToFolder={(question, answer) => {addFlashcardToFolder(question, answer)}}
         />
         <div className='edit-folder-form-buttons'>
-            <button onClick={ ()=>{navigate('/folders/view/' + folderToEdit.folderID)} }>Cancel</button>
+            <button onClick={ ()=>{navigate('/folders/view/' + folderToEdit._id)} }>Cancel</button>
             <button type="submit" form="editFolderForm">Save Changes</button>
         </div>
     </div>

@@ -1,6 +1,7 @@
 import FolderPreview from './Folder/FolderPreview';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react'
 
 const Home = () => {
     const { folders, isLoading, error } = useSelector((state) => state.data);
@@ -16,9 +17,9 @@ const Home = () => {
             <div className="folder-preview-cont">
                 { folders.map((folder) => {
                     return <FolderPreview 
-                        key={folder.id}
+                        key={folder._id}
                         folder={folder}
-                        handleViewFolder={ () => { navigate("folders/view/" + folder.folderID) } }
+                        handleViewFolder={ () => { navigate("folders/view/" + folder._id) } }
                     />
                 }) }
             </div>
