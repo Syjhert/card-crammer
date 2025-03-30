@@ -13,6 +13,7 @@ let usersCollection;
 const folderSchema = {
     _id: "ObjectId",
     name: "String",
+    ownerId: "ObjectId",
     flashcards: [
         {
             _id: "ObjectId",
@@ -21,7 +22,7 @@ const folderSchema = {
         }
     ]
 }
-const usersSchema = {
+const userSchema = {
     _id: "ObjectId",
     name: "String",
     email: "String",
@@ -52,8 +53,14 @@ export const connectDB = async () => {
         usersCollection = database.collection("users");
 
         // create index for better query performace (lookup)
-        await foldersCollection.createIndex({name: 1});
-        await usersCollection.createIndex({email: 1});
+        await foldersCollection.createIndex({ownerId: 1, name: 1});
+        // text index for folder name for future searching
+        await foldersCollection.createIndex({name: "text"});
+        
+        // compound index for email, then name
+        await usersCollection.createIndex({email: 1, name: 1});
+        // No text index for user class because username search won't be needed I think
+
         // return collections as object for dbFunctions to select which to unpack
         return {foldersCollection, usersCollection};
     } catch(e){
