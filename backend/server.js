@@ -2,14 +2,11 @@ import 'dotenv/config';
 import express from 'express'
 import mongoose from 'mongoose';
 import folderRoutes from './routes/folder.js'
+import morgan from 'morgan';
 
 // express app
 const app = express()
 
-const loggerMiddleware = (req, res, next) => {
-    console.log(`Request method: ${req.method}, Request URL: ${req.url}, Request Method: ${req.method}`);
-    next()
-}
 app.use((req, res, next) => {
     // console.log(req.path, req.method)
     res.setHeader('Access-Control-Allow-Origin', '*');
@@ -22,7 +19,7 @@ app.use((req, res, next) => {
 app.use(express.json())
 
 // middleware to log the request method, url and method to the console every time it is called
-app.use(loggerMiddleware);
+app.use(morgan('dev'));
 
 // routes
 app.use('/api/folders', folderRoutes);
