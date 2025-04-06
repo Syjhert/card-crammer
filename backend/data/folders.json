@@ -1,0 +1,42 @@
+[
+  {
+    "_id": "67e6b22f4a7c82dcd79cd27a",
+    "name": "New Folder 2",
+    "flashcards": [
+      {
+        "question": "TEST",
+        "answer": "Yeah",
+        "_id": "67e6c4d1e201e09a30f2785a"
+      },
+      {
+        "question": "yea",
+        "answer": "sds",
+        "_id": "67e6c803e201e09a30f27902"
+      },
+      {
+        "question": "haha",
+        "answer": "huh",
+        "_id": "67e6c803e201e09a30f27903"
+      }
+    ],
+    "createdAt": "2025-03-28T14:29:03.091Z",
+    "updatedAt": "2025-03-28T16:02:11.983Z",
+    "__v": 0
+  },
+  {
+    "_id": "67e6aa3331049a89862aac7f",
+    "name": "Test",
+    "flashcards": [],
+    "createdAt": "2025-03-28T13:54:59.879Z",
+    "updatedAt": "2025-03-28T13:54:59.879Z",
+    "__v": 0
+  },
+  {
+    "name": "New",
+    "flashcards": [],
+    "_id": "67f27f4b0c5cae3dca93db44",
+    "createdAt": "2025-04-06T13:19:07.298Z",
+    "updatedAt": "2025-04-06T13:19:07.298Z",
+    "__v": 0
+  }
+]

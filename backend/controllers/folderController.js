@@ -1,10 +1,15 @@
 import mongoose from "mongoose";
 import Folder from "../models/folderModel.js"
+import { readFolders, writeFolders } from "../data/fileHandler.js";
 
 // get all folders
 export const getFolders = async(req, res, next) => {
     try {
         const folders = await Folder.find({}).sort({createdAt: -1});
+
+        // update the folders.json file with the latest folders
+        await writeFolders(folders);
+
         res.status(200).json(folders);
     } catch(error) {
         // pass the error to the next middleware
@@ -50,6 +55,12 @@ export const createFolder = async (req, res, next) => {
     // add doc to db
     try {
         const folder = await Folder.create({name, flashcards: []});
+
+        // update the folders.json file with the latest folders after a new one is created
+        const foldersFromJSON = await readFolders();
+        foldersFromJSON.push(folder);
+        await writeFolders(foldersFromJSON);
+
         res.status(200).json(folder);
     } catch(error) {
         next(error);
