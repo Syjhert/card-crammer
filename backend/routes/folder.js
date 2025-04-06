@@ -20,6 +20,6 @@ router.post('/', createFolder);
 router.delete('/:id', deleteFolder);
 
 // UPDATE a flashcard
-router.put('/:id', updateFolder);
+router.patch('/:id', updateFolder);
 
 export default router;
