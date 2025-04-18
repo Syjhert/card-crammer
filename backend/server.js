@@ -3,6 +3,8 @@ import express from 'express'
 import mongoose from 'mongoose';
 import folderRoutes from './routes/folder.js'
 import morgan from 'morgan';
+import mongoSanitize from 'express-mongo-sanitize';
+import xss from 'xss-clean';
 
 // express app
 const app = express()
@@ -17,6 +19,12 @@ app.use((req, res, next) => {
 })
 // middleware to parse the request body into the req obj
 app.use(express.json())
+
+// added a middleware to sanitize user input to prevent NoSQL injection attacks like giving a value of { $gt: "" }
+app.use(mongoSanitize())
+
+// added a middleware to sanitize user input against site script XSS like giving a value of "<script>alert('hi')</script>"
+app.use(xss())
 
 // middleware to log the request method, url and method to the console every time it is called
 app.use(morgan('dev'));
