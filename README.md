@@ -1,70 +1,34 @@
-# Getting Started with Create React App
+# Card Crammer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- Card Crammer is a flashcard web application that allows users to create, manage, and review study folders filled with custom flashcards. Whether you're studying for exams or brushing up on concepts, Card Crammer helps streamline your review process with a minimal, RESTful API-backed system.
 
-## Available Scripts
+- All RESTful API endpoints were tested using Postman to ensure correct functionality and error handling.
+- Base URL: http://localhost:PORT/api/folders
 
-In the project directory, you can run:
+| Method | Endpoint | Description                     | Sample Body (JSON)                                                                 |
+|--------|----------|---------------------------------|-----------------------------------------------------------------------------------|
+| GET    | /        | Fetch all folders               | -                                                                                 |
+| GET    | /:id     | Fetch a specific folder by ID   | -                                                                                 |
+| POST   | /        | Create a new folder             | ```{ "name": "Math Notes" }```                                        |
+| PATCH  | /:id     | Update a folder's name and flashcards | ```{ "name": "Updated Folder", "flashcards": [{"question": "question", "answer": "ans"}] }``` |
+| DELETE | /:id     | Delete a folder by ID           | -                                                                                 |
 
-### `npm start`
+| Code            | Description                          |
+|-----------------|--------------------------------------|
+| 200 OK          | Successful read, update, or delete   |
+| 201 Created     | New folder successfully created      |
+| 400 Bad Request | Invalid or missing input             |
+| 404 Not Found   | Folder not found                     |
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+| Library/Tech                | Purpose                                                  |
+|-----------------------------|----------------------------------------------------------|
+| Node.js                     | JavaScript runtime for server-side logic                 |
+| Express.js                  | Web framework for creating RESTful APIs                 |
+| MongoDB                     | NoSQL database for storing folders and flashcards       |
+| Mongoose                    | ODM library for MongoDB in Node.js                      |
+| dotenv                      | Loads environment variables from a `.env` file          |
+| morgan                      | HTTP request logger middleware for development          |
+| express.json()              | Parses incoming JSON request bodies                     |
+| express-mongo-sanitize      | Prevents MongoDB operator injection attacks             |
+| xss-clean                   | Sanitizes user input to prevent XSS attacks             |
+| CORS headers (manually set) | Allows cross-origin requests during development         |
