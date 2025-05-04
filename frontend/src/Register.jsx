@@ -32,22 +32,6 @@ const Register = () => {
                         console.log(err);
                         setError(err);
                     });
-
-        try {
-            const res = await fetch('/api/auth/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ username, email, password })
-            });
-
-            const data = await res.json();
-            if (!res.ok) throw new Error(data.message || 'Registration failed');
-
-            localStorage.setItem('token', data.token);
-            navigate('/');
-        } catch (err) {
-            setError(err.message);
-        }
     };
 
     return (

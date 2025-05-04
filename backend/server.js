@@ -31,8 +31,8 @@ app.use(xss())
 app.use(morgan('dev'));
 
 // routes
-app.use('/api/folders', folderRoutes);
-app.use('/api/auth', authRoutes);
+app.use('/folders', folderRoutes);
+app.use('/auth', authRoutes);
 
 app.all('*', (req, res, next) => {
 
