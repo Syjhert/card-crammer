@@ -1,10 +1,12 @@
 import FolderPreview from './Folder/FolderPreview';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
     const { folders, isLoading, error } = useSelector((state) => state.data);
 
+    const navigate = useNavigate();
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (!token) navigate('/login');

@@ -2,8 +2,7 @@ import { useState } from 'react';
 import Flashcard from '../Flashcard/Flashcard';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleAnswer } from '../redux/folderSlice';
-import { useParams } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from "react-router-dom";
 import editPNG from "../assets/edit.png"
 import editPNGDark from "../assets/edit-dark.png"
 
