@@ -17,20 +17,22 @@ const FlashcardForm = ({ addFlashcardToFolder }) => {
   };
 
   return (
-    <form className="flashcard-form" onSubmit={handleSubmit}>
+    <form className="w-full mx-auto my-2.5 flex flex-col items-center gap-2" onSubmit={handleSubmit}>
       <textarea
         type="text"
+        className="w-1/2 border p-2 rounded"
         placeholder="Enter question"
         value={question}
         onChange={(e) => setQuestion(e.target.value)}
       />
       <textarea
         type="text"
+        className="w-1/2 border p-2 rounded"
         placeholder="Enter answer"
         value={answer}
         onChange={(e) => setAnswer(e.target.value)}
       />
-      <button className='flashcard-form-button' type="submit">Add Flashcard</button>
+      <button className='h-10 px-3 border rounded cursor-pointer flashcard-form-button' type="submit">Add Flashcard</button>
     </form>
   );
 }

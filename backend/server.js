@@ -2,6 +2,7 @@ import 'dotenv/config';
 import express from 'express'
 import mongoose from 'mongoose';
 import folderRoutes from './routes/folder.js'
+import authRoutes from './routes/auth.js'
 import morgan from 'morgan';
 import mongoSanitize from 'express-mongo-sanitize';
 import xss from 'xss-clean';
@@ -31,6 +32,7 @@ app.use(morgan('dev'));
 
 // routes
 app.use('/api/folders', folderRoutes);
+app.use('/api/auth', authRoutes);
 
 app.all('*', (req, res, next) => {
 

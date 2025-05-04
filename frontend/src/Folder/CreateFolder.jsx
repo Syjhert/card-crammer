@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { createFolder } from '../redux/reducer';
+import { createFolder } from '../redux/folderSlice';
 import { useNavigate } from 'react-router-dom';
 
 const CreateFolder = () => {
@@ -28,14 +28,21 @@ const CreateFolder = () => {
     };
 
     return (
-        <form className='create-folder-form' onSubmit={handleSubmit}>
+        <form className='flex flex-col items-center gap-1.5 w-[350px] mx-auto mt-10' onSubmit={handleSubmit}>
+            <div>
+                <p className="text-2xl font-bold">Create Folder</p>
+                <hr className="w-full border-placeholder mt-2"></hr>
+            </div>
+            <label htmlFor='folder-name-input'>Name</label>
             <input
-            id="folder-name-input"  
+            id="folder-name-input"
+            name='folder-name-input'
+            className='w-1/2 h-5 text-center border rounded p-4'
             type="text"
             placeholder="Enter folder name"
             onChange={(e) => setFolderName(e.target.value)}
             />
-            <button type="submit">Add Folder</button>
+            <button className='px-2 border border-gray-400 rounded cursor-pointer' type="submit">Add Folder</button>
         </form>
         );
 }

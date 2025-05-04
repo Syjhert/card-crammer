@@ -1,17 +1,19 @@
 import { useState } from 'react';
 import Flashcard from '../Flashcard/Flashcard';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleAnswer } from '../redux/reducer';
+import { toggleAnswer } from '../redux/folderSlice';
 import { useParams } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 import editPNG from "../assets/edit.png"
-
+import editPNGDark from "../assets/edit-dark.png"
 
 const ViewFolder = () => {
   // gets the id in the route to this Component "/folders/:id"
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const theme = useSelector((state) => state.ui.theme);
 
   // variable for the current index of flashcard in a folder within the array (not its ID)
   const [flashcardInd, setFlashcardInd] = useState(0);
@@ -55,35 +57,49 @@ const ViewFolder = () => {
 
   // function that returns JXS button based on whether we can go back or not (if not it is disabled)
   const prevButton = ()=>{
-    if (canPrev()){
-      return <button className="active-btn prev" onClick={handlePrev}>Prev</button>
-    }
-    else{
-      return <button className="prev" disabled>Prev</button>
-    }
+    return (
+      <button
+        className={`h-10 w-15 border rounded active-btn prev 
+        bg-section dark:bg-section-dark 
+        ${!canPrev() ? 'bg-placeholder cursor-not-allowed' : 
+          'border-3 font-semibold cursor-pointer hover:text-primary dark:hover:text-primary-dark hover:border-primary dark:hover:border-primary-dark'
+        }`}
+        onClick={canPrev() ? handlePrev : null}
+        disabled={!canPrev()}
+      >
+        Prev
+      </button>
+    );
   }
 
   // function that returns JXS button based on whether we can go next or not (if not it is disabled)
   const nextButton = ()=>{
-    if (canNext()){
-      return <button className="active-btn next" onClick={handleNext}>Next</button>
-    }
-    else{
-      return <button className="next" disabled>Next</button>
-    }
+    return (
+      <button
+        className={`h-10 w-15 border rounded active-btn next 
+          bg-section dark:bg-section-dark
+          ${!canNext() ? 'bg-placeholder cursor-not-allowed' : 
+            'border-3 font-semibold cursor-pointer hover:text-primary dark:hover:text-primary-dark hover:border-primary dark:hover:border-primary-dark'}`}
+        onClick={canNext() ? handleNext : null}
+        disabled={!canNext()}
+      >
+        Next
+      </button>
+    );
   }
 
   return (
-    <div className="folder">
-      <div className='viewfolder-name'>
-        <h1>{ folderToView.name }</h1>
-        <img onClick={()=>{ navigate('/folders/edit/' + folderToView._id) }} src={editPNG}></img>
+    <div className="mt-5">
+      <div className='flex justify-center items-center gap-2.5'>
+        <p className='text-2xl font-bold'>{ folderToView.name }</p>
+        <img className='w-4 h-4 cursor-pointer' onClick={()=>{ navigate('/folders/edit/' + folderToView._id) }} 
+          src={theme == "light" ? editPNG : editPNGDark}></img>
       </div>
       { folderToView.flashcards.length > 0 ?
-        <div>
+        <div className='flex flex-col items-center mt-2 gap-2'>
           <p>{flashcardInd+1} / {folderToView.flashcards.length}</p>
           <Flashcard key={flashcardInd} flashcard={folderToView.flashcards[flashcardInd]} handleToggleAnswer={handleToggleAnswer} />
-          <div className="folder-buttons">
+          <div className="flex justify-center gap-2.5 mb-2.5">
             { prevButton() }
             { nextButton() }
           </div>

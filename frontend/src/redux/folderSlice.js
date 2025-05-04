@@ -1,42 +1,71 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
+const API_URL = import.meta.env.VITE_API_URL; // all .env variable must start with VITE_
+const getToken = () => {
+  return localStorage.getItem('token');
+}
+
 // fetch all folders (GET)
 export const fetchFolders = createAsyncThunk("folders/fetchFolders", async () => {
-  const response = await fetch(process.env.REACT_APP_API_URL);
+  const response = await fetch(`${API_URL}/folders`, {
+    method: "GET",
+    headers: { 
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${getToken()}`
+    },
+
+  });
+  const data = await response.json();
   if (!response.ok) throw new Error("Failed to fetch folders");
-  return await response.json();
+  return data;
 });
 
 // create new folder (POST)
 export const createFolder = createAsyncThunk("folders/createFolder", async (folderData) => {
-  const response = await fetch(process.env.REACT_APP_API_URL, {
+  const response = await fetch(API_URL, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: { 
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${getToken()}`
+    },
     body: JSON.stringify(folderData),
   });
   if (!response.ok) throw new Error("Failed to create folder");
-  return await response.json();
+  const data = await response.json();
+  return data;
 });
 
 // delete a folder (DELETE)
 export const deleteFolder = createAsyncThunk("folders/deleteFolder", async (folderID) => {
-  const response = await fetch(`${process.env.REACT_APP_API_URL}/${folderID}`, { method: "DELETE" });
+  const response = await fetch(`${API_URL}/folders/${folderID}`, { 
+    method: "DELETE",
+    headers: { 
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${getToken()}`
+    },
+  });
   if (!response.ok) throw new Error("Failed to delete folder");
   return folderID;
 });
 
 // Update a folder (PATCH)
 export const editFolder = createAsyncThunk("folders/editFolder", async (updatedFolder) => {
-  const editResponse = await fetch(`${process.env.REACT_APP_API_URL}/${updatedFolder._id}`, {
+  const editResponse = await fetch(`${API_URL}/folders/${updatedFolder._id}`, {
     method: "PATCH",
-    headers: { "Content-Type": "application/json" },
+    headers: { 
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${getToken()}`
+    },
     body: JSON.stringify(updatedFolder),
   });
   if (!editResponse.ok) throw new Error("Failed to update folder");
 
-  const getResponse = await fetch(`${process.env.REACT_APP_API_URL}/${updatedFolder._id}`, {
+  const getResponse = await fetch(`${API_URL}/folders/${updatedFolder._id}`, {
     method: "GET",
-    headers: { "Content-Type": "application/json" }
+    headers: { 
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${getToken()}`
+    },
   });
   if (!getResponse.ok) {
     throw new Error("Failed to fetch updated folder");
