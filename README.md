@@ -3,7 +3,9 @@
 - Card Crammer is a flashcard web application that allows users to create, manage, and review study folders filled with custom flashcards. Whether you're studying for exams or brushing up on concepts, Card Crammer helps streamline your review process with a minimal, RESTful API-backed system.
 
 - All RESTful API endpoints were tested using Postman to ensure correct functionality and error handling.
-- Base URL: http://localhost:PORT/api/folders
+- Base URL: http://localhost:PORT/api
+
+- /folders
 
 | Method | Endpoint | Description                     | Sample Body (JSON)                                                                 |
 |--------|----------|---------------------------------|-----------------------------------------------------------------------------------|
@@ -12,6 +14,13 @@
 | POST   | /        | Create a new folder             | ```{ "name": "Math Notes" }```                                        |
 | PATCH  | /:id     | Update a folder's name and flashcards | ```{ "name": "Updated Folder", "flashcards": [{"question": "question", "answer": "ans"}] }``` |
 | DELETE | /:id     | Delete a folder by ID           | -                                                                                 |
+
+- /auth
+
+| Method | Endpoint | Description                     | Sample Body (JSON)                                                                 |
+|--------|----------|---------------------------------|-----------------------------------------------------------------------------------|
+| POST   | /login   | Checks for user from database and validates password | ```{"emailOrUsername": "user", "password": "123" }```        |
+| POST   | /register| Creates a new user given the credentials | ```{"username": "user", "email": "user@gmail.com",  "password": "123" }```  |
 
 | Code            | Description                          |
 |-----------------|--------------------------------------|
